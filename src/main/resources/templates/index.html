@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="new :: head">
+</head>
+<body>
+<nav th:replace="new :: navbar"></nav>
+<div class="container">
+    <div style="clear:both;height: 50px"></div>
+    <div class="span12">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Category/Kategorija</th>
+                <th>Joke/Vic</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Difference/Razlika</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="joke : ${jokes}">
+                <td th:text="${jokes?.indexOf(joke)+1+pageNo*10}"></td>
+                <td th:text="${joke?.category.name}">1</td>
+                <td th:text="${joke?.content}">1</td>
+                <td th:text="${joke?.likes}">Doe</td>
+                <td th:text="${joke?.dislikes}">Doe</td>
+                <td th:text="${joke?.difference()}">mm</td>
+                <form action="#" th:action="@{/like/} + ${{joke.id}}+@{/}+${{pageNo}}" method="post">
+                    <td><button type="submit" class="btn btn-primary"><i class="fa fa-thumbs-up">Like</i> </button>
+                    </td>
+                </form>
+                <form action="#" th:action="@{/dislike/} + ${{joke.id}}+@{/}+${{pageNo}}" method="post">
+                    <td><button type="submit" class="btn btn-primary"><i class="fa fa-thumbs-down">Dislike</i> </button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNo : ${#numbers.sequence(0, numpages)}"><a class="page-link" href="#" th:href="@{/} + ${{pageNo}}"><span th:text="${pageNo + 1}"></span></a></li>
+
+        </ul>
+    </nav>
+
+
+</div>
+
+<script src="../static/jquery.min.js"></script>
+<script src="../static/popper.min.js"></script>
+<script src="../static/bootstrap.min.js"></script>
+
+</body>
+</html>
