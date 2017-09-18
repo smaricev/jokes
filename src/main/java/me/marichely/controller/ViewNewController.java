@@ -45,13 +45,17 @@ public class ViewNewController {
                 model.addAttribute("message","You need to enter joke text");
                 return "newSuccess";
             }
+            if(jokeCategory==null){
+                model.addAttribute("message","You need to select a category");
+                return "newSuccess";
+            }
             Joke a = new Joke();
             a.setContent(joke.getContent());
             a.setCategory(jokeCategory);
             try {
                 jokeRepository.save(a);
             }catch(Exception e){
-                model.addAttribute("message","You need to select a joke category");
+                model.addAttribute("message","Hibernate error contact admin");
                 return "newSuccess";
             }
         }
